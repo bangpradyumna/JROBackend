@@ -6,3 +6,5 @@
 *.fuse_hidden*
 *keyconfig*
 *.sqlite3
+media
+static
