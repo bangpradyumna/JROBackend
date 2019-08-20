@@ -29,13 +29,20 @@ def addFile(request):
         filepath = ro.uploadedfile.path
         res = client.add(filepath)
         print("The hash of file is : ",res['Hash'])
-        # rid = input("\nEnter the Researcher ID")
-        # researcher = "resource:org.jro.Researcher#"+str(rid)
+        #rid = input("\nEnter the Researcher ID")
+        rid=123
+        researcher = "resource:org.jro.Researcher#"+str(rid)
         # rojid = input("\nEnter the Research object ID")
-        # print("\n Adding the research object to the blockchain")
-        # r = requests.post('http://localhost:3000/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
-        # if r.status_code==200:
-            # print("\n Success")
+        rojid=2239932
+        print("\n Adding the research object to the blockchain")
+        r = requests.post('http://localhost:5002/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
+        print(r.content)
+        if r.status_code==200:
+            print("\n Success")
+            data={"hash": res['Hash']}
+        else:
+            print(r.status_code)
+            data={"hash":"error"}
     except ConnectionRefusedError:
         print("Connection error, Please ensure ipfs daemon is running.")    
-    return Response(status=200)
+    return Response(data,status=200)
