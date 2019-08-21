@@ -33,7 +33,7 @@ def addFile(request):
         rid=123
         researcher = "resource:org.jro.Researcher#"+str(rid)
         # rojid = input("\nEnter the Research object ID")
-        rojid=2239932
+        rojid=ro.id
         print("\n Adding the research object to the blockchain")
         r = requests.post('http://localhost:5002/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
         print(r.content)
