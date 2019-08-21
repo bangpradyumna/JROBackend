@@ -13,26 +13,18 @@ import requests
 @parser_classes([FileUploadParser])
 def addFile(request):
     file_obj = request.data['file']
-    # print("Printing Request dictionary")
-    # print(request.data)
-    # print("Printing File")
-    # print(file_obj.read())
-    # file_stored = File(file_obj)
-    ro = UploadedResearchObject.objects.create( # Need to change the oricid value
-        oricid="123",
+    print(request.META)
+    ro = UploadedResearchObject.objects.create( 
+        oricid=request.META['HTTP_oricid'],
         uploadedfile=file_obj
     )
 
     try:
         client = ipfshttpclient.connect('/ip4/127.0.0.1/tcp/5001/http')
-        # filename = input("Enter the filename stored in current directory (with extension)")
         filepath = ro.uploadedfile.path
         res = client.add(filepath)
         print("The hash of file is : ",res['Hash'])
-        #rid = input("\nEnter the Researcher ID")
-        rid=123
-        researcher = "resource:org.jro.Researcher#"+str(rid)
-        # rojid = input("\nEnter the Research object ID")
+        researcher = "resource:org.jro.Researcher#"+str(ro.oricid)
         rojid=ro.id
         print("\n Adding the research object to the blockchain")
         r = requests.post('http://localhost:5002/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
