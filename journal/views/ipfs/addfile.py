@@ -15,7 +15,7 @@ def addFile(request):
     file_obj = request.data['file']
     print(request.META)
     ro = UploadedResearchObject.objects.create( 
-        oricid=request.META['HTTP_oricid'],
+        oricid=request.META['HTTP_ORICID'],
         uploadedfile=file_obj
     )
 
