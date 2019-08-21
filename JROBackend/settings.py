@@ -179,6 +179,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_HEADERS = list(default_headers) + [ 'Content-Disposition',] 
+CORS_ALLOW_HEADERS = list(default_headers) + [ 'Content-Disposition','oricid'] 
 
 USE_X_FORWARDED_HOST = True
