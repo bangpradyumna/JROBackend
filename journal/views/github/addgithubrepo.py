@@ -23,10 +23,9 @@ def addGithubRepo(request):
 
         tf.seek(0)
         ro = GithubResearchObject.objects.create( 
-            oricid=request.META['HTTP_ORICID'],
-            downloadedrepozip=File(tf)
+            oricid=request.META['HTTP_ORICID']       
         )
-        # field.save(basename(urlsplit(github_zip_url).path), File(tf))
+        ro.downloadedrepozip.save(basename(urlsplit(github_zip_url).path), File(tf))
 
     try:
         client = ipfshttpclient.connect('/ip4/127.0.0.1/tcp/5001/http')

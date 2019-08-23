@@ -7,4 +7,4 @@ class UploadedResearchObject(models.Model):
 
 class GithubResearchObject(models.Model):
     oricid = models.CharField(max_length=100)
-    downloadedrepozip = models.FileField(upload_to='github')
+    downloadedrepozip = models.FileField(upload_to='github',null=True,blank=True)
