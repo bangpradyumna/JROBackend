@@ -25,4 +25,6 @@ urlpatterns = [
 ]
 
 if keyconfig.SERVER == False: # This is required to serve uploaded files in developement mode 
+    import debug_toolbar
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += path('__debug__/', include(debug_toolbar.urls)),
