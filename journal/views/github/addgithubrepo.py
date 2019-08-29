@@ -33,7 +33,7 @@ def addGithubRepo(request):
         res = client.add(filepath)
         print("The hash of file is : ",res['Hash'])
         researcher = "resource:org.jro.Researcher#"+str(ro.oricid)
-        rojid=ro.id
+        rojid="resource:org.jro.ROJ#"+ str(res['Hash'])
         print("\n Adding the research object to the blockchain")
         r = requests.post('http://localhost:5002/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
         print(r.content)
