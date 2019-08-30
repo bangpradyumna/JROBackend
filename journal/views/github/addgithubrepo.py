@@ -10,6 +10,7 @@ from os.path import basename
 import requests
 from tempfile import TemporaryFile
 from urllib.parse import urlsplit
+from JROBackend.keyconfig import COMPOSER_REST_URL, IPFS_ADDRESS
 
 @csrf_exempt
 @api_view(['POST'])
@@ -28,14 +29,14 @@ def addGithubRepo(request):
         ro.downloadedrepozip.save(basename(urlsplit(github_zip_url).path), File(tf))
 
     try:
-        client = ipfshttpclient.connect('/ip4/127.0.0.1/tcp/5001/http')
+        client = ipfshttpclient.connect(IPFS_ADDRESS)
         filepath = ro.downloadedrepozip.path
         res = client.add(filepath)
         print("The hash of file is : ",res['Hash'])
         researcher = "resource:org.jro.Researcher#"+str(ro.oricid)
         rojid="resource:org.jro.ROJ#"+ str(res['Hash'])
         print("\n Adding the research object to the blockchain")
-        r = requests.post('http://localhost:5002/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
+        r = requests.post(COMPOSER_REST_URL+'/api/Add', data = { "$class": "org.jro.Add", "rojId": rojid, "node": res['Hash'], "creator": researcher })
         print(r.content)
         if r.status_code==200:
             print("\n Success")
