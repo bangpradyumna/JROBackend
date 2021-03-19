@@ -9,7 +9,7 @@ django-cors-headers==3.0.2
 django-debug-toolbar==2.0
 django-extensions==2.2.1
 django-filter==2.2.0
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 google-auth==1.6.2
 idna==2.8
